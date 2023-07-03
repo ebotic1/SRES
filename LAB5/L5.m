@@ -27,7 +27,7 @@ Y = [1, 0, 0, 0;
  Yinv = inv(Y);
  
  
- for i = 1:50
+ for i = 1:5000
  
     napon_novi = Yinv * I;
     
@@ -41,15 +41,13 @@ Y = [1, 0, 0, 0;
     
     sensitivity = (abs(napon_sen(4)) - abs(napon(4))) / delta;
     
-    sensitivity
-    
     promijena = j*(abs(napon_novi(4)) - abs(napon(4))) / sensitivity;
     
     p(4) = p(4) + promijena;
 
     I = izracunajStruje(p, napon_novi);
     
-    if abs(promijena) < 1e-6 && 0
+    if abs(promijena) < 1e-6
         napon = napon_novi;
         napon_novi = Yinv * I;
         disp("interacija: ");
@@ -61,7 +59,10 @@ Y = [1, 0, 0, 0;
     napon = napon_novi;
 
  end
- 
- disp(napon - junk);
+ disp("napon: ");
+ disp(napon);
+ disp("provjera ispravnosti (Y*napon - I (ako su naponi ispravni treba da bude jednako 0))");
+ disp(Y*napon - I);
+
  
  
